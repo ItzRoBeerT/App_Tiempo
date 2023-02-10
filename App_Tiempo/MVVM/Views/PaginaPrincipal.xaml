@@ -5,8 +5,14 @@
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              Title="PaginaPrincipal">
 
-    <Grid RowDefinitions=".1*,.9*">
-        <SearchBar Grid.Row="0"/>
+    <Grid RowDefinitions=".1*,.8*,.1*">
+        <SearchBar x:Name="nombreZona" Grid.Row="0" SearchCommand="{Binding buscarCommand}" SearchCommandParameter="{Binding Source={x:Reference nombreZona},Path=Text}"/>
+        <Grid Grid.Row="1">
+            <VerticalStackLayout>
+                <Label Text="{Binding NombreZona}" HorizontalOptions="Center" FontSize="Large"/>
+                <skia:SKLottieView RepeatCount="-1" Source=""/>
+            </VerticalStackLayout>
+        </Grid>
 
     </Grid>
   
