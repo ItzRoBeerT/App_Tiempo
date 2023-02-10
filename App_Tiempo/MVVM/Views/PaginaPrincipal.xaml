@@ -8,10 +8,18 @@
 
     <ContentPage.Resources>
         <converters:CodeToLottieConverter x:Key="lottieConverter"/>
+        <converters:CodeToWeatherConverter x:Key="weatherConv"/>
+        <converters:toTempConverter x:Key="tempConv"/>
+        <converters:toWindConverter x:Key="windConv"/>
     </ContentPage.Resources>
 
     <Grid RowDefinitions=".15*,.7*,.15*" >
-        <SearchBar x:Name="nombreZona" Grid.Row="0"  SearchCommand="{Binding buscarCommand}" SearchCommandParameter="{Binding Source={x:Reference nombreZona},Path=Text}"/>
+        <SearchBar x:Name="nombreZona" Grid.Row="0"  SearchCommand="{Binding buscarCommand}"
+                   SearchCommandParameter="{Binding Source={x:Reference nombreZona},Path=Text}"
+                   Margin="15"
+                   MaximumHeightRequest="50"
+                   
+                  />
         <Grid Grid.Row="1"  Grid.ColumnSpan="3">
             <VerticalStackLayout>
                 <Label Text="{Binding NombreZona}" HorizontalOptions="Center" FontSize="Large"/>
@@ -25,17 +33,17 @@
             </VerticalStackLayout>
         </Grid>
         <Grid Grid.Row="2" ColumnDefinitions=".33*,.33*,.33*">
-            <VerticalStackLayout Grid.Column="0">
+            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
                 <Label Text="Temp"/>
-                <Label x:Name="temp" Text="{Binding TiempoData.current_weather.temperature}"/>
+                <Label x:Name="temp" Text="{Binding TiempoData.current_weather.temperature , Converter={StaticResource tempConv}}"/>
             </VerticalStackLayout>
-            <VerticalStackLayout Grid.Column="1" >
+            <VerticalStackLayout Grid.Column="1"  HorizontalOptions="Center">
                 <Label Text="Wind"/>
-                <Label x:Name="wind" Text="{Binding TiempoData.current_weather.windspeed}"/>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Column="2">
+                <Label x:Name="wind" Text="{Binding TiempoData.current_weather.windspeed, Converter={StaticResource windConv}}"/>
+            </VerticalStackLayout >
+            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
                 <Label Text="Weather"/>
-                <Label x:Name="weather" Text="{Binding TiempoData.current_weather.weathercode}"/>
+                <Label x:Name="weather" Text="{Binding TiempoData.current_weather.weathercode, Converter={StaticResource weatherConv}}"/>
             </VerticalStackLayout>
         </Grid>
 

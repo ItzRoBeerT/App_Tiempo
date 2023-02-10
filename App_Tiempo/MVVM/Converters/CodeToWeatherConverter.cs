@@ -11,7 +11,7 @@ namespace App_Tiempo.MVVM.Converters
      {
           public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
           {
-               var code = (float)value;
+               var code = value;
 
                switch (code)
                {
