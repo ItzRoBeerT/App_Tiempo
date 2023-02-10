@@ -20,10 +20,14 @@ namespace App_Tiempo.MVVM.ViewModels
 
         public TiempoViewModel()
         {
-            buscarCommand = new Command((e) =>
+            client = new HttpClient();
+            buscarCommand = new Command(async (e) =>
             {
                 NombreZona = e.ToString();
+                Location loc = await GetCoordinatesAsync(NombreZona);
+                await GetWeather(loc);
             });
+       
         }
 
         private async Task<Location> GetCoordinatesAsync(string address)
@@ -39,8 +43,8 @@ namespace App_Tiempo.MVVM.ViewModels
             string longitud = (Math.Round(location.Longitude, 2).ToString().Replace(",", "."));
             string latitud = (Math.Round(location.Latitude, 2).ToString().Replace(",", "."));
 
-            var url = $"https://api.open-meteo.com/v1/forecast?latitude={latitud}&longitude={longitud}&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=America%2FChicago";
-
+            var url = $"https://api.open-meteo.com/v1/forecast?latitude={latitud}&longitude={longitud}&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto";
+            var url2 = "https://api.open-meteo.com/v1/forecast?latitude=36.69&longitude=-6.14&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto";
             var respone = await client.GetAsync(url);
 
             if (respone.IsSuccessStatusCode)

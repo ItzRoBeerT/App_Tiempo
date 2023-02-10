@@ -8,5 +8,5 @@ public partial class PaginaPrincipal : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = new TiempoViewModel();
-	}
+    }
 }
